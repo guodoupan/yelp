@@ -33,6 +33,7 @@
                         </button>
                         <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ocw-gM-hY4">
                             <rect key="frame" x="89" y="18" width="213" height="44"/>
+                            <gestureRecognizers/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                     </subviews>
