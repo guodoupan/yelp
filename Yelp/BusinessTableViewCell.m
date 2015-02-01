@@ -43,9 +43,10 @@
     [self.thumbImageView setImageWithURL:[NSURL URLWithString:self.business.imageUrl]];
     self.nameLabel.text = self.business.name;
     [self.ratingImageView setImageWithURL:[NSURL URLWithString:self.business.ratingImageUrl]];
-    self.ratingLabel.text = [NSString stringWithFormat:@"%d Reviews", self.business.numReviews];
+    self.ratingLabel.text = [NSString stringWithFormat:@"%ld Reviews", self.business.numReviews];
     self.addressLabel.text = self.business.address;
     self.distanceLabel.text = [NSString stringWithFormat:@"%.2f mi", self.business.distance];
+    self.categoryLabel.text = self.business.categories;
 }
 
 - (void)layoutSubviews {

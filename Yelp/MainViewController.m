@@ -19,15 +19,16 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 @interface MainViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *filterButton;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 @property (weak, nonatomic) IBOutlet UITableView *resultTable;
+@property (weak, nonatomic) IBOutlet UILabel *noResultLabel;
 
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) NSArray *resultArray;
 @property (nonatomic, strong) NSArray *businessArray;
 
 -(void)searchWithTeam:(NSString *)term;
+-(void)onFilter;
 
 @end
 
@@ -39,6 +40,17 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
     if (self) {
         // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
         self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
+        self.title = @"Yelp";
+        
+        UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(onFilter)];
+        filterButton.tintColor = [UIColor whiteColor];
+        self.navigationItem.leftBarButtonItem = filterButton;
+        
+        float x = CGRectGetWidth(self.navigationItem.titleView.frame);
+        UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(x, 0, x, CGRectGetHeight(self.navigationItem.titleView.frame))];
+        searchBar.delegate = self;
+        self.navigationItem.titleView = searchBar;
+        
     }
     return self;
 }
@@ -52,9 +64,9 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
     self.resultTable.dataSource = self;
     [self.resultTable registerNib:[UINib nibWithNibName:@"BusinessTableViewCell" bundle:nil]forCellReuseIdentifier:@"BusinessTableViewCell"];
     self.resultTable.rowHeight = UITableViewAutomaticDimension;
-    // Do any additional setup after loading the view from its nib.
     
-    self.searchBar.delegate = self;
+    self.noResultLabel.hidden = YES;
+    
     [self searchWithTeam:@"chinese"];
 }
 
@@ -76,7 +88,7 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -92,8 +104,14 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
         
         self.resultArray = response[@"businesses"];
         NSInteger total = [response[@"total"] integerValue];
-        NSLog(@"total= %d", total);
-        [self.resultTable reloadData];
+        if (total > 0) {
+            [self.resultTable reloadData];
+            self.noResultLabel.hidden = YES;
+            self.resultTable.hidden = NO;
+        } else {
+            self.noResultLabel.hidden = NO;
+            self.resultTable.hidden = YES;
+        }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -101,5 +119,9 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
         [SVProgressHUD dismiss];
     }];
     [SVProgressHUD show];
+}
+
+- (void)onFilter {
+    
 }
 @end

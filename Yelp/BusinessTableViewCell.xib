@@ -58,7 +58,7 @@
                             <constraint firstAttribute="width" constant="84" id="wow-Ab-Tc8"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88 division st. mission bay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fan-Sc-RE1">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88 division st. mission bay" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fan-Sc-RE1">
                         <rect key="frame" x="96" y="50" width="147" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -72,6 +72,7 @@
                     <constraint firstItem="Fan-Sc-RE1" firstAttribute="leading" secondItem="GvC-3q-5YN" secondAttribute="trailing" constant="8" id="2yu-E8-B8N"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Cgs-uc-tLg" secondAttribute="bottom" constant="8" id="5gX-Bs-SUq"/>
                     <constraint firstItem="4Vs-lg-rx2" firstAttribute="leading" secondItem="GvC-3q-5YN" secondAttribute="trailing" constant="8" id="CGb-lO-YTP"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fan-Sc-RE1" secondAttribute="trailing" constant="8" id="FVR-Bf-4zb"/>
                     <constraint firstItem="WFV-5Z-YXI" firstAttribute="leading" secondItem="4Vs-lg-rx2" secondAttribute="trailing" constant="5" id="HjY-sn-vIN"/>
                     <constraint firstItem="dsk-NP-KKx" firstAttribute="leading" secondItem="LQn-Vt-332" secondAttribute="trailing" constant="8" id="JUq-i9-oBa"/>
                     <constraint firstItem="LQn-Vt-332" firstAttribute="leading" secondItem="GvC-3q-5YN" secondAttribute="trailing" constant="8" id="KU5-SW-NB5"/>
@@ -93,6 +94,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="fzt-1O-Vzb"/>
                         <exclude reference="2U3-D3-ucJ"/>
                         <exclude reference="TcF-i7-yJl"/>
                         <exclude reference="Vxq-50-pe2"/>
