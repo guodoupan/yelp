@@ -11,6 +11,7 @@
 #import "Business.h"
 #import "BusinessTableViewCell.h"
 #import "SVProgressHUD.h"
+#import "FilterViewController.h"
 
 NSString * const kYelpConsumerKey = @"kHaK3izYyinUJfMP2CAHNA";
 NSString * const kYelpConsumerSecret = @"OtssoRAZem7e53Gw_d71d6XoLck";
@@ -22,6 +23,7 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 @property (weak, nonatomic) IBOutlet UITableView *resultTable;
 @property (weak, nonatomic) IBOutlet UILabel *noResultLabel;
+@property (nonatomic, strong) BusinessTableViewCell *protoTypeCell;
 
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) NSArray *resultArray;
@@ -33,6 +35,13 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 @end
 
 @implementation MainViewController
+
+- (BusinessTableViewCell *)protoTypeCell {
+    if (!_protoTypeCell) {
+        _protoTypeCell = [self.resultTable dequeueReusableCellWithIdentifier:@"BusinessTableViewCell"];
+    }
+    return _protoTypeCell;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,6 +92,14 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.protoTypeCell.business = self.businessArray[indexPath.row];
+    [self.protoTypeCell layoutIfNeeded];
+    
+    CGSize size = [self.protoTypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.businessArray.count;
 }
@@ -122,6 +139,9 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 }
 
 - (void)onFilter {
+    FilterViewController *vc = [[FilterViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 @end
