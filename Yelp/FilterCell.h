@@ -8,7 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class FilterCell;
+
+@protocol FilterCellDelegate <NSObject>
+
+- (void)filterCell:(FilterCell *)cell didChangeValue:(BOOL)value;
+
+@end
+
 @interface FilterCell : UITableViewCell
 
-- (void)setData: (NSString *)data;
+@property (nonatomic, assign)BOOL on;
+@property (nonatomic, weak)id<FilterCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+- (void)setOn:(BOOL)on animated:(BOOL)animated;
+
 @end

@@ -22,6 +22,9 @@
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VP0-ea-ZfQ">
                         <rect key="frame" x="263" y="9.5" width="51" height="31"/>
+                        <connections>
+                            <action selector="switchValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="pTh-q6-yAA"/>
+                        </connections>
                     </switch>
                 </subviews>
                 <constraints>
@@ -34,8 +37,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="filterLabel" destination="7E2-hW-swN" id="PbX-ga-nC6"/>
                 <outlet property="filterSwitch" destination="VP0-ea-ZfQ" id="ZB8-TU-Fwu"/>
+                <outlet property="nameLabel" destination="7E2-hW-swN" id="onq-L1-mXf"/>
             </connections>
             <point key="canvasLocation" x="289" y="278"/>
         </tableViewCell>

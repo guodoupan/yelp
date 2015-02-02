@@ -18,7 +18,7 @@ NSString * const kYelpConsumerSecret = @"OtssoRAZem7e53Gw_d71d6XoLck";
 NSString * const kYelpToken = @"6Yy9b_c_gj7kVVGwuZzLOh61BYkgaTlL";
 NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
-@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterViewControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *resultTable;
@@ -29,7 +29,9 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 @property (nonatomic, strong) NSArray *resultArray;
 @property (nonatomic, strong) NSArray *businessArray;
 
--(void)searchWithTeam:(NSString *)term;
+@property (nonatomic, strong) NSDictionary *filters;
+
+-(void)searchWithTeam:(NSString *)term andOptions:(NSDictionary *)options;
 -(void)onFilter;
 
 @end
@@ -76,7 +78,7 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
     
     self.noResultLabel.hidden = YES;
     
-    [self searchWithTeam:@"chinese"];
+    [self searchWithTeam:@"chinese" andOptions:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,11 +112,11 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
-    [self searchWithTeam:searchBar.text];
+    [self searchWithTeam:searchBar.text andOptions:nil];
 }
 
-- (void)searchWithTeam:(NSString *)term {
-    [self.client searchWithTerm:term success:^(AFHTTPRequestOperation *operation, id response) {
+- (void)searchWithTeam:(NSString *)term andOptions:(NSDictionary *)options{
+    [self.client searchWithTerm:term andOptions:options success:^(AFHTTPRequestOperation *operation, id response) {
         NSLog(@"response: %@", response);
         NSArray *businessDictionary = response[@"businesses"];
         self.businessArray = [Business businessesWithDictionary:businessDictionary];
@@ -140,8 +142,14 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 - (void)onFilter {
     FilterViewController *vc = [[FilterViewController alloc] init];
+    vc.delegate = self;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (void)filtersViewController:(FilterViewController *)filtersViewControlller didChangeFilters:(NSDictionary *)filters {
+    self.filters = filters;
+    [self searchWithTeam:@"chinese" andOptions:filters];
 }
 @end

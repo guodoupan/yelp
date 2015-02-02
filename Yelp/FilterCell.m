@@ -9,10 +9,11 @@
 #import "FilterCell.h"
 
 @interface FilterCell()
-@property (weak, nonatomic) IBOutlet UILabel *filterLabel;
+
 
 @property (weak, nonatomic) IBOutlet UISwitch *filterSwitch;
 
+- (IBAction)switchValueChanged:(id)sender;
 
 @end
 
@@ -20,7 +21,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.filterLabel.preferredMaxLayoutWidth = self.filterLabel.frame.size.width;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -29,8 +31,16 @@
     // Configure the view for the selected state
 }
 
-- (void)setData:(NSString *)data {
-    self.filterLabel.text = data;
-    //self.filterSwitch. = data[@"value"];
+- (void)setOn:(BOOL)on {
+    [self setOn:on animated:NO];
+}
+
+- (void)setOn:(BOOL)on animated:(BOOL)animated {
+    _on = on;
+    [self.filterSwitch setOn:on animated:animated];
+}
+
+- (IBAction)switchValueChanged:(id)sender {
+    [self.delegate filterCell:self didChangeValue:self.filterSwitch.on];
 }
 @end
