@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F5C9FEB1A7EE6F60027569A /* FilterDropdownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5C9FE91A7EE6F60027569A /* FilterDropdownCell.m */; };
+		0F5C9FEC1A7EE6F60027569A /* FilterDropdownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5C9FEA1A7EE6F60027569A /* FilterDropdownCell.xib */; };
 		0FCB89BE1A7E99630009EBFC /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB89BC1A7E99630009EBFC /* FilterViewController.m */; };
 		0FCB89BF1A7E99630009EBFC /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FCB89BD1A7E99630009EBFC /* FilterViewController.xib */; };
+		0FCB89C31A7ECA030009EBFC /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB89C11A7ECA030009EBFC /* FilterCell.m */; };
+		0FCB89C41A7ECA030009EBFC /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FCB89C21A7ECA030009EBFC /* FilterCell.xib */; };
 		0FCE272D1A7D51AB00312CA3 /* Business.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCE272C1A7D51AB00312CA3 /* Business.m */; };
 		0FCE27321A7D5FAC00312CA3 /* BusinessTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCE27301A7D5FAC00312CA3 /* BusinessTableViewCell.m */; };
 		0FCE27331A7D5FAC00312CA3 /* BusinessTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FCE27311A7D5FAC00312CA3 /* BusinessTableViewCell.xib */; };
@@ -43,9 +47,15 @@
 /* Begin PBXFileReference section */
 		023788F277CA5FE78A237CBB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		02CF297F13E4ED82AB0CB516 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		0F5C9FE81A7EE6F60027569A /* FilterDropdownCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterDropdownCell.h; sourceTree = "<group>"; };
+		0F5C9FE91A7EE6F60027569A /* FilterDropdownCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterDropdownCell.m; sourceTree = "<group>"; };
+		0F5C9FEA1A7EE6F60027569A /* FilterDropdownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterDropdownCell.xib; sourceTree = "<group>"; };
 		0FCB89BB1A7E99630009EBFC /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		0FCB89BC1A7E99630009EBFC /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		0FCB89BD1A7E99630009EBFC /* FilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
+		0FCB89C01A7ECA030009EBFC /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
+		0FCB89C11A7ECA030009EBFC /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
+		0FCB89C21A7ECA030009EBFC /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		0FCE272B1A7D51AB00312CA3 /* Business.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business.h; sourceTree = "<group>"; };
 		0FCE272C1A7D51AB00312CA3 /* Business.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business.m; sourceTree = "<group>"; };
 		0FCE272F1A7D5FAC00312CA3 /* BusinessTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessTableViewCell.h; sourceTree = "<group>"; };
@@ -115,6 +125,12 @@
 				0FCE272F1A7D5FAC00312CA3 /* BusinessTableViewCell.h */,
 				0FCE27301A7D5FAC00312CA3 /* BusinessTableViewCell.m */,
 				0FCE27311A7D5FAC00312CA3 /* BusinessTableViewCell.xib */,
+				0FCB89C01A7ECA030009EBFC /* FilterCell.h */,
+				0FCB89C11A7ECA030009EBFC /* FilterCell.m */,
+				0FCB89C21A7ECA030009EBFC /* FilterCell.xib */,
+				0F5C9FE81A7EE6F60027569A /* FilterDropdownCell.h */,
+				0F5C9FE91A7EE6F60027569A /* FilterDropdownCell.m */,
+				0F5C9FEA1A7EE6F60027569A /* FilterDropdownCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -306,7 +322,9 @@
 				0FCB89BF1A7E99630009EBFC /* FilterViewController.xib in Resources */,
 				42FD6C5518DC286B000BF2B9 /* InfoPlist.strings in Resources */,
 				0FCE27331A7D5FAC00312CA3 /* BusinessTableViewCell.xib in Resources */,
+				0FCB89C41A7ECA030009EBFC /* FilterCell.xib in Resources */,
 				420474FC18DC2B2100E88E07 /* MainViewController.xib in Resources */,
+				0F5C9FEC1A7EE6F60027569A /* FilterDropdownCell.xib in Resources */,
 				42FD6C5D18DC286B000BF2B9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +382,8 @@
 				42FD6C5B18DC286B000BF2B9 /* AppDelegate.m in Sources */,
 				42FD6C5718DC286B000BF2B9 /* main.m in Sources */,
 				0FCB89BE1A7E99630009EBFC /* FilterViewController.m in Sources */,
+				0F5C9FEB1A7EE6F60027569A /* FilterDropdownCell.m in Sources */,
+				0FCB89C31A7ECA030009EBFC /* FilterCell.m in Sources */,
 				420474F618DC299500E88E07 /* YelpClient.m in Sources */,
 				420474FB18DC2B2100E88E07 /* MainViewController.m in Sources */,
 			);
