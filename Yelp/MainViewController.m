@@ -31,6 +31,8 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 @property (nonatomic, strong) NSDictionary *filters;
 
+@property (nonatomic, strong) NSString *searchTerm;
+
 -(void)searchWithTeam:(NSString *)term andOptions:(NSDictionary *)options;
 -(void)onFilter;
 
@@ -62,6 +64,8 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
         searchBar.delegate = self;
         self.navigationItem.titleView = searchBar;
         
+        self.searchTerm = @"chinese";
+        
     }
     return self;
 }
@@ -78,7 +82,7 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
     
     self.noResultLabel.hidden = YES;
     
-    [self searchWithTeam:@"chinese" andOptions:nil];
+    [self searchWithTeam:self.searchTerm andOptions:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -112,7 +116,8 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
-    [self searchWithTeam:searchBar.text andOptions:nil];
+    self.searchTerm = searchBar.text;
+    [self searchWithTeam:self.searchTerm andOptions:nil];
 }
 
 - (void)searchWithTeam:(NSString *)term andOptions:(NSDictionary *)options{
@@ -150,6 +155,6 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 - (void)filtersViewController:(FilterViewController *)filtersViewControlller didChangeFilters:(NSDictionary *)filters {
     self.filters = filters;
-    [self searchWithTeam:@"chinese" andOptions:filters];
+    [self searchWithTeam:self.searchTerm andOptions:filters];
 }
 @end

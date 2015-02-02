@@ -48,7 +48,7 @@ static int radius[] = {0, 483, 1610, 8047, 32187};
         UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStyleBordered target:self action:@selector(onSearch)];
         searchButton.tintColor = [UIColor whiteColor];
         self.navigationItem.rightBarButtonItem = searchButton;
-        
+
     }
     
     return self;
