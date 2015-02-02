@@ -18,6 +18,9 @@ NSString * const kYelpConsumerSecret = @"OtssoRAZem7e53Gw_d71d6XoLck";
 NSString * const kYelpToken = @"6Yy9b_c_gj7kVVGwuZzLOh61BYkgaTlL";
 NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
+static int PageLimit = 20;
+static int PrefetchOffset = 10;
+
 @interface MainViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterViewControllerDelegate>
 
 
@@ -26,14 +29,17 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 @property (nonatomic, strong) BusinessTableViewCell *protoTypeCell;
 
 @property (nonatomic, strong) YelpClient *client;
-@property (nonatomic, strong) NSArray *resultArray;
-@property (nonatomic, strong) NSArray *businessArray;
+@property (nonatomic, strong) NSMutableArray *businessArray;
 
 @property (nonatomic, strong) NSDictionary *filters;
 
 @property (nonatomic, strong) NSString *searchTerm;
 
--(void)searchWithTeam:(NSString *)term andOptions:(NSDictionary *)options;
+@property (nonatomic, assign) NSInteger offset;
+@property (nonatomic, assign) NSInteger total;
+@property (nonatomic, assign) BOOL isLoading;
+
+-(void)search;;
 -(void)onFilter;
 
 @end
@@ -65,7 +71,6 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
         self.navigationItem.titleView = searchBar;
         
         self.searchTerm = @"chinese";
-        
     }
     return self;
 }
@@ -74,7 +79,10 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 {
     [super viewDidLoad];
     
-    
+    if (!self.businessArray) {
+        self.businessArray = [NSMutableArray array];
+    }
+
     self.resultTable.delegate = self;
     self.resultTable.dataSource = self;
     [self.resultTable registerNib:[UINib nibWithNibName:@"BusinessTableViewCell" bundle:nil]forCellReuseIdentifier:@"BusinessTableViewCell"];
@@ -82,7 +90,10 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
     
     self.noResultLabel.hidden = YES;
     
-    [self searchWithTeam:self.searchTerm andOptions:nil];
+    self.total = 0;
+    self.offset = 0;
+    self.isLoading = false;
+    [self search];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,6 +106,12 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
     BusinessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessTableViewCell"];
 
     cell.business = self.businessArray[indexPath.row];
+    
+    NSInteger loadedCount = self.businessArray.count;
+    if (indexPath.row + PrefetchOffset > loadedCount && !self.isLoading && loadedCount < self.total) {
+        self.offset += loadedCount;
+        [self search];
+    }
     return cell;
 }
 
@@ -117,18 +134,33 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     self.searchTerm = searchBar.text;
-    [self searchWithTeam:self.searchTerm andOptions:nil];
+    self.offset = 0;
+    [self search];
 }
 
-- (void)searchWithTeam:(NSString *)term andOptions:(NSDictionary *)options{
-    [self.client searchWithTerm:term andOptions:options success:^(AFHTTPRequestOperation *operation, id response) {
+- (void)search{
+    if (self.isLoading) {
+        NSLog(@"isLoading, return");
+        return;
+    }
+    NSMutableDictionary *parameters = [self.filters mutableCopy];
+    [parameters setObject:@(self.offset) forKey:@"offset"];
+    [parameters setObject:@(PageLimit) forKey:@"limit"];
+    [self.client searchWithTerm:self.searchTerm andOptions:parameters success:^(AFHTTPRequestOperation *operation, id response) {
         NSLog(@"response: %@", response);
         NSArray *businessDictionary = response[@"businesses"];
-        self.businessArray = [Business businessesWithDictionary:businessDictionary];
-        
-        self.resultArray = response[@"businesses"];
-        NSInteger total = [response[@"total"] integerValue];
-        if (total > 0) {
+        NSArray *businesses = [Business businessesWithDictionary:businessDictionary];
+        if (self.offset == 0) {
+            // refresh
+            [self.businessArray removeAllObjects];
+            [self.businessArray addObjectsFromArray:businesses];
+            [self.resultTable scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:FALSE];
+        } else {
+            // load next page
+            [self.businessArray addObjectsFromArray:businesses];
+        }
+        self.total = [response[@"total"] integerValue];
+        if (self.total > 0) {
             [self.resultTable reloadData];
             self.noResultLabel.hidden = YES;
             self.resultTable.hidden = NO;
@@ -137,11 +169,14 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
             self.resultTable.hidden = YES;
         }
         [SVProgressHUD dismiss];
+        self.isLoading = FALSE;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error: %@", [error description]);
+        self.isLoading = FALSE;
         [SVProgressHUD dismiss];
     }];
+    self.isLoading = true;
     [SVProgressHUD show];
 }
 
@@ -155,6 +190,7 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 
 - (void)filtersViewController:(FilterViewController *)filtersViewControlller didChangeFilters:(NSDictionary *)filters {
     self.filters = filters;
-    [self searchWithTeam:self.searchTerm andOptions:filters];
+    self.offset = 0;
+    [self search];
 }
 @end
