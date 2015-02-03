@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BusinessAnnotation.h"
 
 @interface Business : NSObject
 
@@ -17,6 +18,10 @@
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *categories;
 @property (nonatomic, assign) CGFloat distance;
+@property (nonatomic, strong) NSString *latitude;
+@property (nonatomic, strong) NSString *longitude;
+@property (nonatomic, assign) BOOL isClosed;
 
 + (NSArray *)businessesWithDictionary: (NSArray *)dictionaries;
+- (BusinessAnnotation *)asAnnotation;
 @end

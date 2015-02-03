@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
+                <outlet property="mapView" destination="x5J-RA-qEQ" id="Y1D-tE-Vqw"/>
                 <outlet property="noResultLabel" destination="oJC-xA-mtE" id="Uyc-wy-QTs"/>
                 <outlet property="resultTable" destination="vuB-et-U0E" id="Tre-i9-7HP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -30,16 +31,23 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="x5J-RA-qEQ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </mapView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="vuB-et-U0E" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1hm-rf-SIf"/>
                 <constraint firstAttribute="trailing" secondItem="vuB-et-U0E" secondAttribute="trailing" id="Agt-2F-giU"/>
+                <constraint firstAttribute="trailing" secondItem="x5J-RA-qEQ" secondAttribute="trailing" id="BKp-P6-3gI"/>
+                <constraint firstItem="x5J-RA-qEQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Gg1-Ec-NaY"/>
                 <constraint firstItem="oJC-xA-mtE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="JRC-QT-0WV"/>
                 <constraint firstAttribute="bottom" secondItem="vuB-et-U0E" secondAttribute="bottom" id="KfR-55-cll"/>
                 <constraint firstItem="oJC-xA-mtE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="M9Z-bf-v4Y"/>
                 <constraint firstItem="vuB-et-U0E" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UP8-fr-bsZ"/>
                 <constraint firstAttribute="trailing" secondItem="oJC-xA-mtE" secondAttribute="trailing" id="fA8-LI-NfR"/>
+                <constraint firstAttribute="bottom" secondItem="x5J-RA-qEQ" secondAttribute="bottom" id="hUk-fq-UE8"/>
+                <constraint firstItem="x5J-RA-qEQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hxp-2t-YT2"/>
             </constraints>
         </view>
         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bou-bD-r2y">

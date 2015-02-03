@@ -12,6 +12,9 @@
 #import "BusinessTableViewCell.h"
 #import "SVProgressHUD.h"
 #import "FilterViewController.h"
+#import "BusinessAnnotation.h"
+#import "UIImageView+AFNetworking.h"
+#import "MapKit/MapKit.h"
 
 NSString * const kYelpConsumerKey = @"kHaK3izYyinUJfMP2CAHNA";
 NSString * const kYelpConsumerSecret = @"OtssoRAZem7e53Gw_d71d6XoLck";
@@ -21,11 +24,13 @@ NSString * const kYelpTokenSecret = @"1XioZg980nz_fmqF52xRVLqRdc4";
 static int PageLimit = 20;
 static int PrefetchOffset = 10;
 
-@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterViewControllerDelegate>
+@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterViewControllerDelegate, MKMapViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *resultTable;
 @property (weak, nonatomic) IBOutlet UILabel *noResultLabel;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
 @property (nonatomic, strong) BusinessTableViewCell *protoTypeCell;
 
 @property (nonatomic, strong) YelpClient *client;
@@ -38,10 +43,11 @@ static int PrefetchOffset = 10;
 @property (nonatomic, assign) NSInteger offset;
 @property (nonatomic, assign) NSInteger total;
 @property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, assign) BOOL isMapShown;
 
 -(void)search;;
 -(void)onFilter;
-
+-(void)onRightButton;
 @end
 
 @implementation MainViewController
@@ -64,6 +70,12 @@ static int PrefetchOffset = 10;
         UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(onFilter)];
         filterButton.tintColor = [UIColor whiteColor];
         self.navigationItem.leftBarButtonItem = filterButton;
+        
+        UIBarButtonItem *mapButton = [[UIBarButtonItem alloc] initWithTitle:@"Map" style:UIBarButtonItemStyleBordered target:self action:@selector(onRightButton)];
+        mapButton.tintColor = [UIColor whiteColor];
+        self.navigationItem.rightBarButtonItem = mapButton;
+        
+
         
         float x = CGRectGetWidth(self.navigationItem.titleView.frame);
         UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(x, 0, x, CGRectGetHeight(self.navigationItem.titleView.frame))];
@@ -93,6 +105,12 @@ static int PrefetchOffset = 10;
     self.total = 0;
     self.offset = 0;
     self.isLoading = false;
+    self.isMapShown =  false;
+    CLLocationCoordinate2D test = CLLocationCoordinate2DMake(37.774866,-122.394556);
+    self.mapView.region = MKCoordinateRegionMakeWithDistance(test, 10000, 10000);
+    self.mapView.hidden = true;
+    self.mapView.delegate = self;
+
     [self search];
 }
 
@@ -136,6 +154,24 @@ static int PrefetchOffset = 10;
     self.searchTerm = searchBar.text;
     self.offset = 0;
     [self search];
+}
+
+- (void) showPinsOnMapView {
+    NSArray * visibleIndexPaths = [self.resultTable indexPathsForVisibleRows];
+    
+    for (int i = 0; i < visibleIndexPaths.count; i++) {
+        NSIndexPath *indexPath = visibleIndexPaths[i];
+        [self.mapView addAnnotation:[self.businessArray[indexPath.row] asAnnotation]];
+    }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKAnnotationView *mav = [mapView dequeueReusableAnnotationViewWithIdentifier:@"MKPinAnnotationView"];
+    mav.canShowCallout = YES;
+    BusinessAnnotation *busAnno = (BusinessAnnotation *)annotation;
+    UIImageView *ratingsImage;
+    [ratingsImage setImageWithURL:busAnno.rating_img_url];
+    return mav;
 }
 
 - (void)search{
@@ -186,6 +222,21 @@ static int PrefetchOffset = 10;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:nvc animated:YES completion:nil];
+}
+
+
+- (void)onRightButton {
+    if (self.isMapShown) {
+        self.navigationItem.rightBarButtonItem.title = @"Map";
+        self.mapView.hidden = true;
+        self.resultTable.hidden = false;
+    } else {
+        self.navigationItem.rightBarButtonItem.title = @"List";
+        self.mapView.hidden = false;
+        self.resultTable.hidden = true;
+        [self showPinsOnMapView];
+    }
+    self.isMapShown = !self.isMapShown;
 }
 
 - (void)filtersViewController:(FilterViewController *)filtersViewControlller didChangeFilters:(NSDictionary *)filters {

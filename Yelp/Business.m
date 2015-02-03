@@ -29,6 +29,9 @@
         NSArray *neighborhoods = [dictionary valueForKeyPath:@"location.neighborhoods"];
         NSString *neighborhood = neighborhoods.count > 0 ? neighborhoods[0] : @"";
         self.address = [NSString stringWithFormat:@"%@%@", street, neighborhood];
+        self.latitude = [dictionary valueForKeyPath:@"location.coordinate.latitude"];
+        self.longitude = [dictionary valueForKeyPath:@"location.coordinate.longitude"];
+        self.isClosed = [[dictionary valueForKey:@"is_closed"] boolValue];
         
         self.numReviews = [dictionary[@"review_count"] integerValue];
         self.ratingImageUrl = dictionary[@"rating_img_url"];
@@ -49,5 +52,16 @@
     }
     
     return businesses;
+}
+
+- (BusinessAnnotation *)asAnnotation {
+    float latitude = [self.latitude floatValue];
+    float longitude = [self.longitude floatValue];
+    BusinessAnnotation *anno = [[BusinessAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude, longitude)];
+    [anno setIsClosed:self.isClosed];
+    [anno setRating_img_url:[NSURL URLWithString:self.ratingImageUrl]];
+    [anno setReviewCount:self.numReviews];
+    [anno setTitle:self.name];
+    return anno;
 }
 @end

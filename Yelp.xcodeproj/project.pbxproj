@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F5C9FEB1A7EE6F60027569A /* FilterDropdownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5C9FE91A7EE6F60027569A /* FilterDropdownCell.m */; };
 		0F5C9FEC1A7EE6F60027569A /* FilterDropdownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5C9FEA1A7EE6F60027569A /* FilterDropdownCell.xib */; };
+		0F5C9FF41A80594A0027569A /* BusinessAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5C9FF31A80594A0027569A /* BusinessAnnotation.m */; };
 		0FCB89BE1A7E99630009EBFC /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB89BC1A7E99630009EBFC /* FilterViewController.m */; };
 		0FCB89BF1A7E99630009EBFC /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FCB89BD1A7E99630009EBFC /* FilterViewController.xib */; };
 		0FCB89C31A7ECA030009EBFC /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB89C11A7ECA030009EBFC /* FilterCell.m */; };
@@ -50,6 +51,8 @@
 		0F5C9FE81A7EE6F60027569A /* FilterDropdownCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterDropdownCell.h; sourceTree = "<group>"; };
 		0F5C9FE91A7EE6F60027569A /* FilterDropdownCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterDropdownCell.m; sourceTree = "<group>"; };
 		0F5C9FEA1A7EE6F60027569A /* FilterDropdownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterDropdownCell.xib; sourceTree = "<group>"; };
+		0F5C9FF21A80594A0027569A /* BusinessAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessAnnotation.h; sourceTree = "<group>"; };
+		0F5C9FF31A80594A0027569A /* BusinessAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessAnnotation.m; sourceTree = "<group>"; };
 		0FCB89BB1A7E99630009EBFC /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		0FCB89BC1A7E99630009EBFC /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		0FCB89BD1A7E99630009EBFC /* FilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 			children = (
 				0FCE272B1A7D51AB00312CA3 /* Business.h */,
 				0FCE272C1A7D51AB00312CA3 /* Business.m */,
+				0F5C9FF21A80594A0027569A /* BusinessAnnotation.h */,
+				0F5C9FF31A80594A0027569A /* BusinessAnnotation.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 			files = (
 				0FCE272D1A7D51AB00312CA3 /* Business.m in Sources */,
 				0FCE27321A7D5FAC00312CA3 /* BusinessTableViewCell.m in Sources */,
+				0F5C9FF41A80594A0027569A /* BusinessAnnotation.m in Sources */,
 				42FD6C5B18DC286B000BF2B9 /* AppDelegate.m in Sources */,
 				42FD6C5718DC286B000BF2B9 /* main.m in Sources */,
 				0FCB89BE1A7E99630009EBFC /* FilterViewController.m in Sources */,
